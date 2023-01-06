@@ -1,5 +1,6 @@
 #This file will contain all the individual checks that the program requires: Block, Horizontal Line, Vertical Line
 SUDOKU_SIZE = 9;
+BLOCK_SIZE = 3
 #This function will take in a row and return the missing values in that row as a list
 def check_horizontal(row, possibilities):
     
@@ -45,12 +46,12 @@ def get_row(index, puzzle):
 '''
 def  get_block(index, puzzle):
     values = []
-    block_column = index[0] // 3
-    block_row = index[1] // 3
-    for x in range(3):
-        for y in range(3):
-            y_coord = y + (block_column * 3)
-            x_coord = x + (block_row * 3)
+    block_column = index[0] // BLOCK_SIZE
+    block_row = index[1] // BLOCK_SIZE
+    for x in range(BLOCK_SIZE):
+        for y in range(BLOCK_SIZE):
+            y_coord = y + (block_column * BLOCK_SIZE)
+            x_coord = x + (block_row * BLOCK_SIZE)
             values.append(puzzle[x_coord][y_coord])
             
     return values
