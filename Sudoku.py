@@ -17,11 +17,8 @@ def check_horizontal(row, possibilities):
 ''' 
 The below functions will retrieve the column, block and row based on the index on the index that is being checked.
 
-    
-def get_row(index, puzzle):
-
-def get_block(index, puzzle): 
-
+the index that is input will be in the form of [x,y] where x represents the the row value counting from the top starting at 0
+and y represents the column counting from the left as usual and starting at 0
 '''
 
 
