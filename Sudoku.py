@@ -1,4 +1,9 @@
 #This file will contain all the individual checks that the program requires: Block, Horizontal Line, Vertical Line
+'''
+The variables below contain "constants" that are never meant to change.
+SUDOKU_SIZE represents the dimensions of the Sucoku puzzle
+BLOCK_SIZE represents the dimensions of the internal blocks of the puzzle
+'''
 SUDOKU_SIZE = 9;
 BLOCK_SIZE = 3
 #This function will take in a row and return the missing values in that row as a list
@@ -53,7 +58,17 @@ def  get_block(index, puzzle):
             
     return values
             
-
+'''
+    possibilities will take in an index and a puzzle and will return a set of possible solutions for the square
+'''
+def find_possibilities(index, puzzle):
+    possibilities = {1,2,3,4,5,6,7,8,9}
+    taken_values = set(get_block(index, puzzle) + get_row(index, puzzle) + get_column(index, puzzle))
+    possibilities -= taken_values
+    return possibilities
+    
+    
+    
 #Sample Sudoku Below
 #https://sudoku9x9.com/?level=1 L1: #547263085
 row1 = [7, 5, 0, 0, 8, 0, 0, 9, 0]
@@ -68,6 +83,7 @@ row9 = [2, 0, 0, 4, 0, 9, 0, 0, 7]
 
 sudoku_puzzle = [row1, row2, row3, row4, row5, row6, row7, row8, row9]
 
-print(get_column([0,0], sudoku_puzzle))
-print(get_row([0,0], sudoku_puzzle))
-print(get_block([0,0], sudoku_puzzle))
+print(get_column([1,0], sudoku_puzzle))
+print(get_row([1,0], sudoku_puzzle))
+print(get_block([1,0], sudoku_puzzle))
+print(find_possibilities([1,0], sudoku_puzzle))
