@@ -27,6 +27,24 @@ class TestGetters(unittest.TestCase):
     def test_block(self):
         block3 = [0,9,0,6,0,0,3,0,0]
         self.assertEqual(Sudoku.get_block([8,0], sudoku_puzzle), block3 )
+    
+    def test_find_possibilities(self):
+        Sudoku.find_possibilities([1,0], sudoku_puzzle)
+        self.assertEqual(sudoku_puzzle[1][0], 3)
+        
+    def test_solved(self):
+        solved_puzzle = [[7,5,4,3,8,6,2,9,1],
+                         [3,9,1,2,7,4,6,5,8],
+                         [6,8,2,9,1,5,3,7,4],
+                         [5,2,6,8,9,7,4,1,3],
+                         [4,7,8,1,6,3,5,2,9],
+                         [1,3,9,5,4,2,7,8,6],
+                         [9,6,5,7,3,8,1,4,2],
+                         [8,4,7,6,2,1,9,3,5],
+                         [2,1,3,4,5,9,8,6,7]
+                         ]
+        Sudoku.solve_puzzle(sudoku_puzzle)
+        self.assertEqual(sudoku_puzzle, solved_puzzle)
 
 if __name__ == '__main__':
     unittest.main()
