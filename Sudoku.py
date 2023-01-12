@@ -59,16 +59,22 @@ def  get_block(index, puzzle):
     return values
             
 '''
-    possibilities will take in an index and a puzzle and will return a set of possible solutions for the square
+    find_possibilities will take in an index and a puzzle and will return a set of possible solutions for the square
+    if there is only one possibility for the square, it will assign that value to the index given of the puzzle
 '''
 def find_possibilities(index, puzzle):
     possibilities = {1,2,3,4,5,6,7,8,9}
     taken_values = set(get_block(index, puzzle) + get_row(index, puzzle) + get_column(index, puzzle))
     possibilities -= taken_values
+    if (len(possibilities) == 1):
+        puzzle[index[0]][index[1]] = list(possibilities)[0]
     return possibilities
     
+def print_puzzle(puzzle):
+    for row in puzzle:
+        print(row)
     
-    
+
 #Sample Sudoku Below
 #https://sudoku9x9.com/?level=1 L1: #547263085
 row1 = [7, 5, 0, 0, 8, 0, 0, 9, 0]
@@ -83,7 +89,11 @@ row9 = [2, 0, 0, 4, 0, 9, 0, 0, 7]
 
 sudoku_puzzle = [row1, row2, row3, row4, row5, row6, row7, row8, row9]
 
+print_puzzle(sudoku_puzzle)
+print("________________________________________")
 print(get_column([1,0], sudoku_puzzle))
 print(get_row([1,0], sudoku_puzzle))
 print(get_block([1,0], sudoku_puzzle))
 print(find_possibilities([1,0], sudoku_puzzle))
+print("________________________________________")
+print_puzzle(sudoku_puzzle)
