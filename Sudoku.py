@@ -69,12 +69,25 @@ def find_possibilities(index, puzzle):
     if (len(possibilities) == 1):
         puzzle[index[0]][index[1]] = list(possibilities)[0]
     return possibilities
-    
+
+'''
+    print_puzzle is a function that is used to print the puzzle in a more user friendly way for debugging purposes.
+'''
 def print_puzzle(puzzle):
     for row in puzzle:
         print(row)
-    
 
+def get_empty_spaces(puzzle):
+    empty_spaces = []
+    for x in range(len(puzzle - 1)):
+        for y in range(len(puzzle[0] - 1)):
+            if(puzzle[x][y] == 0):
+                empty_spaces.append([x][y])
+    
+    
+def solve_puzzle(puzzle):
+    
+    return 0
 #Sample Sudoku Below
 #https://sudoku9x9.com/?level=1 L1: #547263085
 row1 = [7, 5, 0, 0, 8, 0, 0, 9, 0]
