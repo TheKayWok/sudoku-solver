@@ -28,15 +28,15 @@ and y represents the column counting from the left as usual and starting at 0
 
 
 def get_column(index, puzzle):
-    values = []
+    values = set()
     for val in range(SUDOKU_SIZE):
-        values.append(puzzle[val][index[1]])
+        values.add(puzzle[val][index[1]])
     return values
 
 def get_row(index, puzzle):
-    values = []
+    values = set()
     for val in range(SUDOKU_SIZE):
-        values.append(puzzle[index[0]][val])
+        values.add(puzzle[index[0]][val])
     return values
 
 '''
@@ -47,14 +47,14 @@ def get_row(index, puzzle):
     See any 9x9 sudoku puzzle for a more clear picture.
 '''
 def  get_block(index, puzzle):
-    values = []
+    values = set()
     block_column = index[0] // BLOCK_SIZE
     block_row = index[1] // BLOCK_SIZE
     for x in range(BLOCK_SIZE):
         for y in range(BLOCK_SIZE):
             y_coord = y + (block_column * BLOCK_SIZE)
             x_coord = x + (block_row * BLOCK_SIZE)
-            values.append(puzzle[x_coord][y_coord])
+            values.add(puzzle[y_coord][x_coord])
             
     return values
             
@@ -64,10 +64,11 @@ def  get_block(index, puzzle):
 '''
 def find_possibilities(index, puzzle):
     possibilities = {1,2,3,4,5,6,7,8,9}
-    taken_values = set(get_block(index, puzzle) + get_row(index, puzzle) + get_column(index, puzzle))
+    taken_values = set.union(get_block(index, puzzle)).union(get_row(index, puzzle)).union(get_column(index, puzzle))
     possibilities -= taken_values
     if (len(possibilities) == 1):
         puzzle[index[0]][index[1]] = list(possibilities)[0]
+        
     return possibilities
 
 '''
@@ -79,15 +80,32 @@ def print_puzzle(puzzle):
 
 def get_empty_spaces(puzzle):
     empty_spaces = []
-    for x in range(len(puzzle - 1)):
-        for y in range(len(puzzle[0] - 1)):
+    for x in range(len(puzzle)):
+        for y in range(len(puzzle[0])):
             if(puzzle[x][y] == 0):
-                empty_spaces.append([x][y])
+                empty_spaces.append([x,y])
+                
+    return empty_spaces
     
     
 def solve_puzzle(puzzle):
-    
-    return 0
+    empty_spaces = get_empty_spaces(puzzle)
+    count = 0
+    while(len(empty_spaces) > 0):
+        
+        print(++count)
+        for space in empty_spaces:
+            
+            if len(find_possibilities(space, puzzle)) == 1:
+                print(space)
+                empty_spaces.remove(space)
+                
+                print_puzzle(sudoku_puzzle)
+                print("____________________________________")
+            
+                 
+
+
 #Sample Sudoku Below
 #https://sudoku9x9.com/?level=1 L1: #547263085
 row1 = [7, 5, 0, 0, 8, 0, 0, 9, 0]
@@ -104,9 +122,6 @@ sudoku_puzzle = [row1, row2, row3, row4, row5, row6, row7, row8, row9]
 
 print_puzzle(sudoku_puzzle)
 print("________________________________________")
-print(get_column([1,0], sudoku_puzzle))
-print(get_row([1,0], sudoku_puzzle))
-print(get_block([1,0], sudoku_puzzle))
-print(find_possibilities([1,0], sudoku_puzzle))
+print(solve_puzzle(sudoku_puzzle))
 print("________________________________________")
 print_puzzle(sudoku_puzzle)
