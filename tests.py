@@ -32,6 +32,11 @@ class TestGetters(unittest.TestCase):
         Sudoku.find_possibilities([1,0], sudoku_puzzle)
         self.assertEqual(sudoku_puzzle[1][0], 3)
         
+    def test_get_empty_spaces(self):
+        small_puzzle = [[0,2],[1,0]]
+        solution = [[0,0],[1,1]]
+        self.assertEqual(Sudoku.get_empty_spaces(small_puzzle), solution)
+        
     def test_solved(self):
         solved_puzzle = [[7,5,4,3,8,6,2,9,1],
                          [3,9,1,2,7,4,6,5,8],
