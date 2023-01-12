@@ -1,4 +1,9 @@
 #This file will contain all the individual checks that the program requires: Block, Horizontal Line, Vertical Line
+'''
+The variables below contain "constants" that are never meant to change.
+SUDOKU_SIZE represents the dimensions of the Sucoku puzzle
+BLOCK_SIZE represents the dimensions of the internal blocks of the puzzle
+'''
 SUDOKU_SIZE = 9;
 BLOCK_SIZE = 3
 #This function will take in a row and return the missing values in that row as a list
@@ -17,11 +22,8 @@ def check_horizontal(row, possibilities):
 ''' 
 The below functions will retrieve the column, block and row based on the index on the index that is being checked.
 
-    
-def get_row(index, puzzle):
-
-def get_block(index, puzzle): 
-
+the index that is input will be in the form of [x,y] where x represents the the row value counting from the top starting at 0
+and y represents the column counting from the left as usual and starting at 0
 '''
 
 
@@ -56,6 +58,22 @@ def  get_block(index, puzzle):
             
     return values
             
+'''
+    find_possibilities will take in an index and a puzzle and will return a set of possible solutions for the square
+    if there is only one possibility for the square, it will assign that value to the index given of the puzzle
+'''
+def find_possibilities(index, puzzle):
+    possibilities = {1,2,3,4,5,6,7,8,9}
+    taken_values = set(get_block(index, puzzle) + get_row(index, puzzle) + get_column(index, puzzle))
+    possibilities -= taken_values
+    if (len(possibilities) == 1):
+        puzzle[index[0]][index[1]] = list(possibilities)[0]
+    return possibilities
+    
+def print_puzzle(puzzle):
+    for row in puzzle:
+        print(row)
+    
 
 #Sample Sudoku Below
 #https://sudoku9x9.com/?level=1 L1: #547263085
@@ -71,6 +89,11 @@ row9 = [2, 0, 0, 4, 0, 9, 0, 0, 7]
 
 sudoku_puzzle = [row1, row2, row3, row4, row5, row6, row7, row8, row9]
 
-print(get_column([0,0], sudoku_puzzle))
-print(get_row([0,0], sudoku_puzzle))
-print(get_block([0,0], sudoku_puzzle))
+print_puzzle(sudoku_puzzle)
+print("________________________________________")
+print(get_column([1,0], sudoku_puzzle))
+print(get_row([1,0], sudoku_puzzle))
+print(get_block([1,0], sudoku_puzzle))
+print(find_possibilities([1,0], sudoku_puzzle))
+print("________________________________________")
+print_puzzle(sudoku_puzzle)
